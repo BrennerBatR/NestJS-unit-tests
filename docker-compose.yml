@@ -1,0 +1,26 @@
+version: "3"
+services:
+  mysqlsrv:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: "project"
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/Docker/Volumes/MySql:/var/lib/mysql
+    networks:
+      - mysql-compose-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 80:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - mysql-compose-network
+
+networks:
+  mysql-compose-network:
+    driver: bridge
